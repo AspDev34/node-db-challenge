@@ -1,6 +1,6 @@
 const express = require('express');
 
-const helperDB = require('./helpersForDB.js');
+const ProjectsDb = require('./projectDb.js');
 
 const router = express.Router();
 
@@ -8,65 +8,65 @@ const router = express.Router();
 //endpoints using router
 router.get('/', (req, res) => {
     // api/posts
-    helperDB.get(req.query)
-        .then(tasks => {
-            res.status(200).json(tasks)
+    ProjectsDb.get(req.query)
+        .then(proj => {
+            res.status(200).json(proj)
         })
         .catch(err => {
             console.log(err)
-            res.status(500).json({ message: 'error retrieving tasks' })
+            res.status(500).json({ message: 'error retrieving projects' })
         })
 });
 
 router.post('/', (req, res) => {
-    helperDB.insert(req.body)
-        .then(task => {
-            res.status(200).json(task)
+    ProjectsDb.insert(req.body)
+        .then(proj => {
+            res.status(200).json(proj)
         })
         .catch(err => {
             console.log(err)
             res.status(500).json({
-                message: "failed to add post"
+                message: "failed to add project"
             })
         })
 })
 
 router.get('/:id', (req, res) => {
     // api/posts
-    helperDB.getById(req.params.id)
-        .then(task => {
-            res.status(200).json(task)
+    ProjectsDb.getById(req.params.id)
+        .then(proj => {
+            res.status(200).json(proj)
         })
         .catch(err => {
             console.log(err);
             res.status(500).json({
-                message: 'error retrieving task'
+                message: 'error retrieving project'
             })
         })
 });
 
 router.delete('/:id', (req, res) => {
     // api/posts
-    helperDB.remove(req.params.id)
-        .then(task => {
-            res.status(200).json(task)
+    ProjectsDb.remove(req.params.id)
+        .then(proj => {
+            res.status(200).json(proj)
         })
         .catch(err => {
             console.log(err);
-            res.status(500).json({ errorMessage: "failed to delete" })
+            res.status(500).json({ errorMessage: "failed to delete project entry" })
         })
 });
 
 router.put('/:id', (req, res) => {
     // api/posts
-    helperDB.update(req.params.id, req.body)
-        .then(task => {
-            res.status(200).json(task)
+    ProjectsDb.update(req.params.id, req.body)
+        .then(proj => {
+            res.status(200).json(proj)
         })
         .catch(err => {
             console.log(err)
             res.status(500).json({
-                message: "failed to update task"
+                message: "failed to update project entry"
             })
         })
 });
