@@ -4,5 +4,6 @@ const knex = require('knex'); // imports knex.js to be used to interface with th
 
 const knexConfig = require('../knexfile.js'); // imports th external knex file
 
-module.exports = knex(knexConfig.config);
+// we must select the development object from our knexfile
+module.exports = knex(knexConfig.development);
 
